@@ -22,8 +22,31 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kartik-verse.vercel.app"),
   title: "KartikVerse | Full Stack Explorer",
   description: "The interactive portfolio of Kartik Agrawal. Discover healthcare, agriculture, and publishing civilizations built with code.",
+  openGraph: {
+    title: "KartikVerse | Full Stack Explorer",
+    description: "The interactive portfolio of Kartik Agrawal. Discover healthcare, agriculture, and publishing civilizations built with code.",
+    url: "https://kartik-verse.vercel.app",
+    siteName: "KartikVerse",
+    images: [
+      {
+        url: "/assets/explorer/explorer_horizon.png",
+        width: 1200,
+        height: 630,
+        alt: "KartikVerse - The Portfolio of Kartik Agrawal",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "KartikVerse | Full Stack Explorer",
+    description: "The interactive portfolio of Kartik Agrawal. Discover healthcare, agriculture, and publishing civilizations built with code.",
+    images: ["/assets/explorer/explorer_horizon.png"],
+  },
 };
 
 export default function RootLayout({

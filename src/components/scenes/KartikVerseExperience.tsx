@@ -32,10 +32,25 @@ export function KartikVerseExperience() {
   const countdownRef = useRef<HTMLDivElement>(null);
   const countdownTextRef = useRef<HTMLSpanElement>(null);
   const flashRef = useRef<HTMLDivElement>(null);
+  const warpLinesRef = useRef<HTMLDivElement>(null);
 
   // Subtitles overlay
   const subtitleRef = useRef<HTMLDivElement>(null);
   const [subtitleText, setSubtitleText] = useState("");
+
+  const [warpStars, setWarpStars] = useState<{x: number, y: number, rotation: number}[]>([]);
+
+  useEffect(() => {
+    setWarpStars(Array.from({ length: 150 }).map(() => {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 20 + Math.random() * 800;
+      const x = Math.cos(angle) * radius;
+      const y = Math.sin(angle) * radius;
+      // Convert radians to degrees, and add 90 so the vertical div points outward
+      const rotation = (angle * 180) / Math.PI + 90;
+      return { x, y, rotation };
+    }));
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -51,6 +66,7 @@ export function KartikVerseExperience() {
         .set(portalRef.current, { scale: 0, opacity: 0, rotationX: 70 })
         .set(countdownRef.current, { opacity: 0, scale: 0.5 })
         .set(flashRef.current, { opacity: 0 })
+        .set(warpLinesRef.current, { opacity: 0 })
         .set(subtitleRef.current, { opacity: 0 });
 
       // SCENE 1: KARTIKVERSE Title
@@ -131,21 +147,42 @@ export function KartikVerseExperience() {
         .fromTo(countdownRef.current, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.6 }, "scene5+4.5")
         .to(countdownRef.current, { opacity: 0, scale: 1.2, duration: 0.5 }, "scene5+5.5");
 
-      // SCENE 6: Flash & Exit
-      tl.addLabel("scene6", 28)
-        .to(portalRef.current, { scale: 15, duration: 0.8, ease: "power4.in" }, "scene6")
-        .to(flashRef.current, { opacity: 1, duration: 0.4, ease: "power2.in" }, "scene6+0.4")
-        .to(containerRef.current, { opacity: 0, duration: 0.5 }, "scene6+1.0")
+      // SCENE 6: 3D Warp Speed Tunnel & Exit
+      // The timeline precisely follows the "INITIATE JUMP" fade at scene5+5.5 (which is 26.5s)
+      tl.addLabel("scene6", 26.5)
+        // Background drops to space black, revealing stars
+        .to(containerRef.current, { backgroundColor: "#020617", duration: 0.2 }, "scene6")
+        .to(warpLinesRef.current, { opacity: 1, duration: 0.1 }, "scene6")
+        // Spin the entire container to create a twisting wormhole spiral
+        .fromTo(warpLinesRef.current, { rotation: 0 }, { rotation: 180, duration: 2.5, ease: "power2.in" }, "scene6")
+        // Portal expands massively, "swallowing" the viewport
+        .to(portalRef.current, { scale: 50, opacity: 0, duration: 1.5, ease: "power3.in" }, "scene6")
+        // Stars fly past camera in 3D space
+        .fromTo(".warp-star", 
+          { z: -3000, scale: 0, opacity: 0 },
+          { 
+            z: 1000, 
+            scale: 3, 
+            opacity: 1, 
+            duration: 1.2, 
+            stagger: { each: 0.015, repeat: 1 }, 
+            ease: "power2.in" 
+          },
+          "scene6"
+        )
+        // Final flash transition
+        .to(flashRef.current, { opacity: 1, duration: 0.5, ease: "power2.in" }, "scene6+2.0")
+        .to(containerRef.current, { opacity: 0, duration: 0.5 }, "scene6+2.5")
         .call(() => {
           setIsExplorerMode(false);
           const el = document.getElementById('projects');
           if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }, undefined, "scene6+1.5");
+        }, undefined, "scene6+3.0");
 
     }, containerRef);
 
     return () => ctx.revert();
-  }, [speak, setIsExplorerMode]);
+  }, [speak, setIsExplorerMode, warpStars]);
 
   // When video naturally ends, play the GSAP timeline and trigger cleanup
   useEffect(() => {
@@ -248,6 +285,27 @@ export function KartikVerseExperience() {
       <div ref={countdownRef} className="absolute inset-0 z-[60] flex items-center justify-center pointer-events-none">
         <span ref={countdownTextRef} className="font-mono text-7xl md:text-[20vh] text-white font-bold leading-none tracking-tighter drop-shadow-[0_0_50px_rgba(255,255,255,1)] text-center">
         </span>
+      </div>
+
+      {/* 3D Warp Star Tunnel Effect */}
+      <div 
+        ref={warpLinesRef} 
+        className="absolute inset-0 z-[65] opacity-0 pointer-events-none overflow-hidden"
+        style={{ perspective: '800px' }}
+      >
+        {warpStars.map((star, i) => (
+          <div 
+            key={i} 
+            className="warp-star absolute w-0.5 md:w-1 h-12 md:h-24 bg-white rounded-full shadow-[0_0_20px_rgba(0,255,255,1)]"
+            style={{ 
+              left: `calc(50% + ${star.x}px)`,
+              top: `calc(50% + ${star.y}px)`,
+              // Pointing radially outwards from the center
+              transform: `rotate(${star.rotation}deg)`,
+              transformOrigin: 'center center',
+            }}
+          />
+        ))}
       </div>
 
       {/* White Flash */}
