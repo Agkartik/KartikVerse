@@ -296,12 +296,10 @@ export function KartikVerseExperience() {
         {warpStars.map((star, i) => (
           <div 
             key={i} 
-            className="warp-star absolute w-0.5 md:w-1 h-12 md:h-24 bg-white rounded-full shadow-[0_0_20px_rgba(0,255,255,1)]"
+            className="warp-star absolute w-2 h-2 md:w-3 md:h-3 bg-white rounded-full shadow-[0_0_20px_rgba(0,255,255,1)]"
             style={{ 
               left: `calc(50% + ${star.x}px)`,
               top: `calc(50% + ${star.y}px)`,
-              // Pointing radially outwards from the center
-              transform: `rotate(${star.rotation}deg)`,
               transformOrigin: 'center center',
             }}
           />
