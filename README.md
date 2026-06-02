@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌌 KartikVerse
 
-## Getting Started
+![KartikVerse](public/assets/explorer/explorer_horizon.png)
 
-First, run the development server:
+> **Step into KartikVerse** — A premium, highly-interactive digital universe built by Kartik Agrawal.
 
+KartikVerse isn't just a portfolio; it's a cinematic exploration of my software engineering journey. Built with cutting-edge web technologies, it features immersive GSAP animations, a custom physics engine, and dynamic worlds representing my core projects.
+
+## ✨ Features
+
+- **Cinematic Intro:** A video-powered introduction that seamlessly transitions into the 3D-inspired universe.
+- **Scroll-Snapping Timeline:** Buttery-smooth, scroll-driven navigation through the entire portfolio using GSAP ScrollTrigger.
+- **ORION Control Center:** A fully functional, interactive companion UI that controls Universe Settings (Music, Particles, Performance Mode).
+- **Dynamic Audio Engine:** Context-aware background music that fades dynamically based on your location in the universe.
+- **Secure Mission Terminal:** A built-in communication system that directly connects visitors to my inbox.
+
+## 🚀 The Worlds (Projects)
+
+- 📖 **BookHub:** Global Literary Ecosystem (React, Node.js, MongoDB)
+- 🏥 **MediConnect+:** Next-Generation Healthcare Infrastructure
+- 🌱 **FarmDirect:** Connecting Farmers Directly to Opportunity
+- 🍔 **Flavor Haven:** Premium Culinary Platform
+
+## 🛠️ Technology Stack
+
+- **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Animation:** [GSAP](https://gsap.com/) (ScrollTrigger, Timelines) & [Framer Motion](https://www.framer.com/motion/)
+- **State Management:** [Zustand](https://github.com/pmndrs/zustand)
+- **Icons:** [Lucide React](https://lucide.dev/)
+
+## 💻 Getting Started
+
+First, install the dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then, run the development server:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open [http://localhost:3000](http://localhost:3000) with your browser to explore the universe locally.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔗 Connect
 
-## Learn More
+- **LinkedIn:** [kartik221203](https://www.linkedin.com/in/kartik221203/)
+- **Email:** kartik221203@gmail.com
+- **GitHub:** [Agkartik](https://github.com/Agkartik)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Built with ❤️ from Gurugram, Haryana to the Stars.*
